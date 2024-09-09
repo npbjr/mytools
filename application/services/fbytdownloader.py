@@ -33,13 +33,9 @@ class FBYTDownloader:
 
             info_d = ydl.extract_info(link, download=False)
             filename = ydl.prepare_filename(info_d)
-
+            print("Download is completed successfully")
             return send_file(filename, as_attachment=True)
         except:
             print("An error has occurred")
             return {"message": "An error has occurred", "status": 400}
-        print("Download is completed successfully")
-        return {
-            "message": "Download is completed successfully, please see Downloads Folder",
-            "status": 200,
-        }
+        
