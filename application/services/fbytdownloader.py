@@ -11,19 +11,16 @@ class FBYTDownloader:
 
     def process_video_link(self, link: str) -> json:
 
-        # Get the current timestamp
         current_timestamp = datetime.now()
 
-        # Convert to milliseconds since epoch
-        milliseconds_since_epoch = int(current_timestamp.timestamp() * 1000)
-
-        # Print the result
+        milliseconds = int(current_timestamp.timestamp() * 1000)
 
         downloads_folder = os.path.join(os.path.expanduser("~"), "downloads")
         ydl_opts = {
             "format": "best",  # Download the best quality available
             "outtmpl": os.path.join(
-                downloads_folder, "{tit}.%(ext)s".format(tit=milliseconds_since_epoch)
+                downloads_folder,
+                "{title}.%(ext)s".format(title=milliseconds),
             ),  # Save to Downloads folder
         }
         try:
@@ -36,4 +33,3 @@ class FBYTDownloader:
             return send_file(filename, as_attachment=True)
         except Exception as e:
             return {"message": "An error has occurred", "status": 400}
-        
