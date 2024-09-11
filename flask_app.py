@@ -28,7 +28,11 @@ def after_request(response):
 
 @app.before_request
 def pre_checks():
-
+    try:
+        print(request.environ["HTTP_HOST"], get_server_ip())
+        print(request.environ["HTTP_ORIGIN"])
+    except Exception as e:
+        print(e)
     if "api" in request.url:
         print(request.url_root, request.host_url)
         if request.url_root != request.host_url:
