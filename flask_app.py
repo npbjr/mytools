@@ -16,11 +16,7 @@ def get_server_ip():
     return socket.gethostbyname(hostname)
 
 
-WHITELISTED_IPS = [
-    "127.0.0.1",
-    "127.0.0.1:5000",
-    get_server_ip() if os.environ["STAGE"] == "dev" else "127.0.0.1",
-]
+WHITELISTED_IPS = ["127.0.0.1", "127.0.0.1:5000"]
 
 
 @app.after_request
