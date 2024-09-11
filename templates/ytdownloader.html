@@ -13,7 +13,7 @@
     
     <div class="container mt-5">
       <h2 class="text-center">Upload YouTube URL</h2>
-      <form action="/upload" method="POST">
+      <form action="/api/upload" method="POST">
         <div class="form-group">
           <label for="youtube-url">YouTube URL:</label>
           <input
@@ -23,6 +23,11 @@
             name="youtube_url"
             placeholder="Enter YouTube URL"
             required
+          />
+          <input
+            type="hidden"
+            name="api_key"
+            value="{{ api_key }}"
           />
         </div>
         <button type="submit" class="btn btn-primary btn-block">Upload</button>
