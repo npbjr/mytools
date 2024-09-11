@@ -16,7 +16,11 @@ def get_server_ip():
     return socket.gethostbyname(hostname)
 
 
-whitelistips = [get_server_ip(), "127.0.0.1"]
+WHITELISTED_IPS = [
+    "127.0.0.1",
+    "127.0.0.1:5000",
+    get_server_ip() if os.environ["STAGE"] == "dev" else "127.0.0.1",
+]
 
 
 @app.after_request
@@ -28,19 +32,19 @@ def after_request(response):
 
 @app.before_request
 def pre_checks():
-    try:
-        print(request.environ["HTTP_HOST"], get_server_ip())
-        print(request.environ["HTTP_ORIGIN"])
-    except Exception as e:
-        print(e)
+    # try:
+    #     print(request.environ["HTTP_HOST"], get_server_ip())
+    #     print(request.environ["HTTP_ORIGIN"])
+    # except Exception as e:
+    #     print(e)
     if "api" in request.url:
-        print(request.url_root, request.host_url)
-        if request.url_root != request.host_url:
+        server_ip = get_server_ip()
+        print(server_ip, WHITELISTED_IPS)
+        if server_ip not in WHITELISTED_IPS:
             auth_key = request.headers.get("Authorization")
             if auth_key != AUTHORIZATION_KEY:
                 return {"message": " Access Denied ", "status": 401}
-
-        if request.url_root == request.host_url:
+        else:
             request.data = {"link": request.form.get("youtube_url")}
 
 
