@@ -20,7 +20,7 @@ class FBYTDownloader:
         @after_this_request
         def cleanup(response):
             os.remove(filename)
-            print(f"---- Success Deleting of file {filename}")
+            print(f"---- Success Deleting of file {filename} --- ")
             return response
 
         ydl_opts = {
