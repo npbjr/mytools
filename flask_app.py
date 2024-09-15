@@ -23,7 +23,7 @@ ALLOWED_ORIGIN = ["127.0.0.1", "127.0.0.1:5000", "http://127.0.0.1:5000"]
 @app.before_request
 def pre_checks():
     origin = request.headers.get("Origin")
-    print(origin, ALLOWED_ORIGIN)
+    print(origin, ALLOWED_ORIGIN, request.host_url)
     if "api" in request.url:
         if request.method == "POST":
             if origin in ALLOWED_ORIGIN or origin in [request.host_url]:
