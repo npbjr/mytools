@@ -26,7 +26,7 @@ def pre_checks():
     print(origin, ALLOWED_ORIGIN)
     if "api" in request.url:
         if request.method == "POST":
-            if origin in ALLOWED_ORIGIN:
+            if origin in ALLOWED_ORIGIN or origin in [request.host_url]:
                 request.data = {"link": request.form.get("youtube_url")}
                 pass
             # check if authorization token is acceptable
