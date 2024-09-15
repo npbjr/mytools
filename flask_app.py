@@ -10,38 +10,35 @@ CORS(app)
 app.secret_key = os.urandom(16)
 AUTHORIZATION_KEY = "sample"
 
-
-def get_server_ip():
-    hostname = socket.gethostname()
-    return socket.gethostbyname(hostname)
+ALLOWED_ORIGIN = ["127.0.0.1", "127.0.0.1:5000", "http://127.0.0.1:5000"]
 
 
-WHITELISTED_IPS = ["127.0.0.1", "127.0.0.1:5000"]
+# @app.after_request
+# def after_request(response):
 
-
-@app.after_request
-def after_request(response):
-
-    response.headers["Access-Control-Allow-Origin"] = request.url_root
-    return response
+#     response.headers["Access-Control-Allow-Origin"] = request.url_root
+#     return response
 
 
 @app.before_request
 def pre_checks():
-    # try:
-    #     print(request.environ["HTTP_HOST"], get_server_ip())
-    #     print(request.environ["HTTP_ORIGIN"])
-    # except Exception as e:
-    #     print(e)
+    origin = request.headers.get("Origin")
+    print(origin, ALLOWED_ORIGIN)
     if "api" in request.url:
-        server_ip = get_server_ip()
-        print(server_ip, WHITELISTED_IPS)
-        if server_ip not in WHITELISTED_IPS:
-            auth_key = request.headers.get("Authorization")
-            if auth_key != AUTHORIZATION_KEY:
-                return {"message": " Access Denied ", "status": 401}
+        if request.method == "POST":
+            if origin in ALLOWED_ORIGIN:
+                request.data = {"link": request.form.get("youtube_url")}
+                pass
+            # check if authorization token is acceptable
+            else:
+                auth_key = request.headers.get("Authorization")
+                if auth_key == AUTHORIZATION_KEY:
+                    pass
+                else:
+                    return {"message": " Access Denied ", "status": 401}
+
         else:
-            request.data = {"link": request.form.get("youtube_url")}
+            return {"message": " Method Not Allowed ", "status": 400}
 
 
 app.register_blueprint(blueprint, url_prefix="")
