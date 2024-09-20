@@ -3,7 +3,7 @@ from flask_cors import CORS
 from application.api import blueprint
 import os
 import socket
-from application.util.exceptions import InternalServerError
+from application.util.response_handler import Raise
 
 app = Flask(__name__)
 
@@ -22,22 +22,20 @@ def pre_checks():
         if request.method == "POST":
             if origin in ALLOWED_ORIGIN or origin in [request.host_url[:-1]]:
                 request.data = {"link": request.form.get("youtube_url")}
-
                 pass
-            # check if authorization token is acceptable
             else:
                 auth_key = request.headers.get("Authorization")
                 if auth_key == AUTHORIZATION_KEY:
                     pass
                 else:
-                    raise InternalServerError("Access Denied")
-                    # return {"message": " Access Denied ", "status": 401}
+                    Raise(401)
 
         else:
-            return {"message": " Method Not Allowed ", "status": 400}
+            return Raise(500)
 
 
 app.register_blueprint(blueprint, url_prefix="")
+
 
 @app.route("/")
 def index():

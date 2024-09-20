@@ -1,5 +1,6 @@
 from typing import Any, Callable, Type
 import json
+from decorators import handle_response
 
 
 class ACCESS_DENIED:
@@ -37,10 +38,6 @@ class Raise:
             self.STATUS = exception_obj.STATUS
             self.MESSAGE = exception_obj.MESSAGE
 
+    @handle_response
     def __str__(self) -> str:
         return json.dumps({"message": self.MESSAGE, "status": self.STATUS})
-
-
-if __name__ == "__main__":
-
-    print(Raise(402))
