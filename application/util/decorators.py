@@ -11,3 +11,6 @@ def handle_exception(func):
         return func_result
 
     return wrapper_function
+
+
+def log_to_firehose(func): ...
