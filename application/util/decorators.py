@@ -6,7 +6,6 @@ class CustomJsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, str):
             return json.dumps(str)
-
         return super().default(obj)
 
 def firehose(payload: object): ...
