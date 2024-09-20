@@ -15,9 +15,7 @@ def firehose(payload: object): ...
 def log_incomming_request(f: Callable[..., Any]): ...
 def log_incomming_response(f: Callable[..., Any]): ...
 
-
 def handle_request(func): ...
-
 
 def handle_response(cfunc: Callable[..., Any]):
     """
@@ -28,13 +26,15 @@ def handle_response(cfunc: Callable[..., Any]):
     def wrapper_function(func, *args, **kwargs):
         @wraps(func)
         def inner(*args, **kwargs):
-            func_result = cfunc(func(*args, **kwargs)) if cfunc else ...
+            func_result = cfunc
+            (
+                func(*args, **kwargs)
+                ) if cfunc else ...
             (
                 log_incomming_response(firehose(func_result))
                 if func_result.get("status", None)
                 else ...
             )
-
             # well i need to follow what my reponse_handler wants, i will update this in the future
             # so will convert it back to str
             return json.dumps(func_result)

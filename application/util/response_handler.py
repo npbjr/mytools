@@ -2,30 +2,22 @@ from typing import Any, Callable, Type
 import json
 from decorators import handle_response
 
-
 class ACCESS_DENIED:
     STATUS: int = 401
     MESSAGE: str = "Access Denied"
-
 
 class BAD_REQUEST:
     STATUS: int = 400
     MESSAGE: str = "Bad Request"
 
-
 class INTERNAL_SERVER_ERRPR:
     STATUS: int = 500
     MESSAGE: str = "Internal Server Error"
 
-
 class INVALID_URL: ...
-
-
 class DB_ERROR: ...
 
-
 STATUS_MAPPING = {401: ACCESS_DENIED, 400: BAD_REQUEST, 500: INTERNAL_SERVER_ERRPR}
-
 
 class Raise:
     def __init__(self, status_code: int) -> dict:
