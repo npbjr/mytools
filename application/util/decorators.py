@@ -19,7 +19,7 @@ def log_incomming_response(f: Callable[..., Any]): ...
 def handle_request(func): ...
 
 
-def handle_response(customFunctions: Callable[..., Any]):
+def handle_response(cfunc: Callable[..., Any]):
     """
     the reason for this is i wanted to pass a function as parameter to this decorator
     any custom function that can modify the data before handling it in the decorator
@@ -28,9 +28,7 @@ def handle_response(customFunctions: Callable[..., Any]):
     def wrapper_function(func, *args, **kwargs):
         @wraps(func)
         def inner(*args, **kwargs):
-            func_result = (
-                customFunctions(func(*args, **kwargs)) if customFunctions else ...
-            )
+            func_result = cfunc(func(*args, **kwargs)) if cfunc else ...
             (
                 log_incomming_response(firehose(func_result))
                 if func_result.get("status", None)

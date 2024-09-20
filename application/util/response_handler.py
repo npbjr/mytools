@@ -38,7 +38,7 @@ class Raise:
             self.STATUS = exception_obj.STATUS
             self.MESSAGE = exception_obj.MESSAGE
 
-    @handle_response(customFunctions=lambda x: json.loads(x))
+    @handle_response(cfunc=lambda x: json.loads(x))
     def __str__(self) -> dict:
         return json.dumps({"message": self.MESSAGE, "status": self.STATUS})
 
