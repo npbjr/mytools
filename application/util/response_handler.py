@@ -38,6 +38,9 @@ class Raise:
             self.STATUS = exception_obj.STATUS
             self.MESSAGE = exception_obj.MESSAGE
 
-    @handle_response
-    def __str__(self) -> str:
+    @handle_response(customFunctions=lambda x: json.loads(x))
+    def __str__(self) -> dict:
         return json.dumps({"message": self.MESSAGE, "status": self.STATUS})
+
+    def __call__(self) -> dict:
+        return {"message": self.MESSAGE, "status": self.STATUS}

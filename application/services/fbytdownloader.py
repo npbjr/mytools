@@ -3,7 +3,7 @@ import yt_dlp
 import json
 import os
 from datetime import datetime
-
+from util.response_handler import Raise
 
 class FBYTDownloader:
     def __init__(self) -> None:
@@ -39,4 +39,4 @@ class FBYTDownloader:
             filename = ydl.prepare_filename(info_d)
             return send_file(filename, as_attachment=True)
         except Exception as e:
-            return {"message": "An error has occurred", "status": 400}
+            return Raise(400)

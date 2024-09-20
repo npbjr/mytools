@@ -31,7 +31,7 @@ def pre_checks():
                     Raise(401)
 
         else:
-            return Raise(500)
+            Raise(500)
 
 
 app.register_blueprint(blueprint, url_prefix="")
