@@ -3,7 +3,7 @@ from flask_cors import CORS
 from application.api import blueprint
 import os
 import socket
-from application.util.response_handler import Raise
+from application.util.response_handler import Error
 
 app = Flask(__name__)
 
@@ -31,9 +31,7 @@ def pre_checks():
         else:
             return Error(500)
 
-
 app.register_blueprint(blueprint, url_prefix="")
-
 
 @app.route("/")
 def index():

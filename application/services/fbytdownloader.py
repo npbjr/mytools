@@ -3,7 +3,7 @@ import yt_dlp
 import json
 import os
 from datetime import datetime
-from ..util.response_handler import Raise
+from ..util.response_handler import Error
 
 class FBYTDownloader:
     def __init__(self): ...

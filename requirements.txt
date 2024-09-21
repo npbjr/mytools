@@ -5,3 +5,4 @@ pytubefix
 requests
 youtube-dl
 yt-dlp
+python-dotenv
