@@ -13,7 +13,6 @@ AUTHORIZATION_KEY = "sample"
 
 ALLOWED_ORIGIN = ["127.0.0.1", "127.0.0.1:5000", "http://127.0.0.1:5000"]
 
-
 @app.before_request
 def pre_checks():
     origin = request.headers.get("Origin")
@@ -28,10 +27,9 @@ def pre_checks():
                 if auth_key == AUTHORIZATION_KEY:
                     pass
                 else:
-                    Raise(401)
-
+                    return Error(401)
         else:
-            Raise(500)
+            return Error(500)
 
 
 app.register_blueprint(blueprint, url_prefix="")

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YouTube URL Upload</title>
+    <title>Video Downloader</title>
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,7 +13,7 @@
     
     <div class="container mt-5">
       <h2 class="text-center">Upload YouTube URL</h2>
-      <form action="/api/upload" method="POST">
+      <form action="/api/uploadvideo" method="POST">
         <div class="form-group">
           <label for="youtube-url">YouTube URL:</label>
           <input
@@ -21,13 +21,8 @@
             class="form-control"
             id="youtube-url"
             name="youtube_url"
-            placeholder="Enter YouTube URL"
+            placeholder="Enter Video Url"
             required
-          />
-          <input
-            type="hidden"
-            name="api_key"
-            value="{{ api_key }}"
           />
         </div>
         <button type="submit" class="btn btn-primary btn-block">Upload</button>

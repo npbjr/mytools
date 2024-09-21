@@ -1,6 +1,6 @@
 from typing import Any, Callable, Type
 import json
-from decorators import handle_response
+from .decorators import handle_response
 
 class ACCESS_DENIED:
     STATUS: int = 401
@@ -18,7 +18,7 @@ class INVALID_URL: ...
 class DB_ERROR: ...
 STATUS_MAPPING = {401: ACCESS_DENIED, 400: BAD_REQUEST, 500: INTERNAL_SERVER_ERRPR}
 
-class Raise:
+class Error:
     def __init__(self, status_code: int) -> dict:
         exception_obj = STATUS_MAPPING.get(status_code)
         if exception_obj:
@@ -29,7 +29,10 @@ class Raise:
             self.STATUS = exception_obj.STATUS
             self.MESSAGE = exception_obj.MESSAGE
 
-    @handle_response(cfunc=lambda x: json.loads(x))
+    @handle_response(
+            cfunc = lambda x: json.loads(x) 
+            if isinstance(str, x) else x
+        )
     def __str__(self) -> dict:
         return json.dumps({"message": self.MESSAGE, "status": self.STATUS})
 

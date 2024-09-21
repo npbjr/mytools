@@ -3,12 +3,10 @@ import yt_dlp
 import json
 import os
 from datetime import datetime
-from util.response_handler import Raise
+from ..util.response_handler import Raise
 
 class FBYTDownloader:
-    def __init__(self) -> None:
-        pass
-
+    def __init__(self): ...
     def process_video_link(self, link: str) -> json:
         current_timestamp = datetime.now()
 
@@ -28,7 +26,7 @@ class FBYTDownloader:
             "outtmpl": os.path.join(
                 downloads_folder,
                 filename,
-            ),  # Save to Downloads folder
+            )  # Save to Downloads folder
         }
         try:
             # Download the video
@@ -39,4 +37,4 @@ class FBYTDownloader:
             filename = ydl.prepare_filename(info_d)
             return send_file(filename, as_attachment=True)
         except Exception as e:
-            return Raise(400)
+            return Error(400)

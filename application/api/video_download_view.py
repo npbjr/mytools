@@ -1,14 +1,11 @@
 from flask.views import MethodView
 from flask import Flask, jsonify, render_template, request, send_from_directory
 from ..services.fbytdownloader import FBYTDownloader
-from ..util.exceptions import InvalidUrl
-from ..util.decorators import handle_exception
 import json
 
 
 class VideoDownloadView(MethodView):
 
-    @handle_exception
     def post(self):
 
         if type(request.data) == str:
