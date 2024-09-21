@@ -30,10 +30,13 @@ class VideoDownloadView(MethodView):
         filename = ydl.prepare_filename(info_d)
 
         return ytd.download_mp4(
-            lambda *args : dict(fn = "{name}.%(ext)s".format(
-                        name=f"{filename[:VIDEO_TITLE_LIMIT]}..."+str(int(datetime.now().timestamp() * 1000))),
+            lambda *args : 
+            dict(
+                fn = "{name}.%(ext)s".
+                 format(
+                        name=f"{filename[:VIDEO_TITLE_LIMIT]}...{str(int(datetime.now().timestamp() * 1000))}"),
                 df = os.path.join(os.path.expanduser("~"), "downloads")), 
-                link)
+                link )
         
 
 VIDEO_DOWNLOAD_VIEW = VideoDownloadView.as_view("video_download_view")

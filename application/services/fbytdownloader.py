@@ -29,20 +29,19 @@ class FBYTDownloader:
             """
             this is will remove the file in your linux system
             """
-
             os.remove(filename)
             print(f"---- Success Deleting of file {filename} --- ")
+            
             return response
 
         ydl_opts = {
-            "format": "best",  # Download the best quality available
+            "format": "best", 
             "outtmpl": os.path.join(
                 downloads_folder,
                 filename,
-            )  # Save to Downloads folder
+            ) 
         }
         try:
-            # Download the video
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([link])
 
@@ -53,18 +52,3 @@ class FBYTDownloader:
         except Exception as e:
             return Error(400)
 
-
-
-
-
-# if "__main__" == __name__:
-#     ytd = FBYTDownloader()
-#     title = link = "https:///asdasdak"
-
-#     res, re  = ytd.download_mp4(
-#             lambda *args : dict(fn = "{name}.%(ext)s".format(
-#                         name=title[:10]+str(int(datetime.now().timestamp() * 1000))),
-#                 df = os.path.join(os.path.expanduser("~"), "downloads")), 
-#                 link)
-
-#     print(res, re)
