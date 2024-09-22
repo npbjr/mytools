@@ -3,35 +3,246 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Downloader</title>
+    <title>Trix dot com</title>
+    <link rel="icon" class="logotop" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <style>
+        html, body {
+          height: 100%;
+          font-family: "DM Sans", Sans-serif !important;
+          
+        }
+        p, h1, h2, h3, h4, h5, label, input{
+          font-family: "monospace" !important;
+        }
+        .content {
+          flex: 1;
+        }
+        footer {
+          color: black !important;
+          /* background-color: #343a40; */
+          /* background: linear-gradient(109.6deg, rgb(255, 230, 109) 11.2%, rgb(87, 232, 107) 100.2%); */
+          
+          background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
+        }
+        .mt-5, .my-5 {
+          margin-top:7rem!important;
+        }
+        .submit.btn-block {
+          background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
+        }
+        .submit.btn-block:hover {
+          background: linear-gradient(to top, #d5a2f3 0%, #f187ce 100%);
+        }
+
+        /* --e-global-color-primary: #5D59FF;
+    --e-global-color-secondary: #560a83;
+    --e-global-color-text: #2A2A4B;
+    --e-global-color-accent: #AAEDE8;
+    --e-global-color-5b31b92: #F6F8FD;
+    --e-global-color-f898f31: #FFFEFE;
+    --e-global-color-0d046a4: #DCEDFE;
+    --e-global-color-7ad78f4: #FFFFFFE6;
+    --e-global-color-8630d9f: #7E222200;
+    --e-global-color-b500f0a: #FFFFFF;
+    --e-global-typography-primary-font-family: "DM Sans"; */
+        .search {
+
+          text-decoration: none;
+          fill: #2A2A4B;
+          color: #2A2A4B;
+          background-color: transparent;
+          background-image: linear-gradient(180deg, var(--e-global-color-f898f31) 0%, #FFFFFF 100%);
+          border-style: solid;
+          border-width: 1px 1px 1px 1px;
+          border-color: #b5aabb;
+          border-radius: 80px 80px 80px 80px;
+          box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
+        }
+        .search:hover {
+
+          text-decoration: none;
+          fill: #2A2A4B;
+          color: #2A2A4B;
+          background-color: transparent;
+          background-image: linear-gradient(180deg, var(--e-global-color-f898f31) 0%, #FFFFFF 100%);
+          border-style: solid;
+          border-width: 1px 1px 1px 1px;
+          border-color: #c06ef7;
+          border-radius: 80px 80px 80px 80px;
+          box-shadow: 0px 0px 0px 0px rgba(143, 114, 114, 0.5);
+        }
+        .submit.btn-primary {
+          border-color: #b5aabb;
+          color: #1b1e21;
+          size: 10px;
+          width:200px;
+        }
+        /* body{ */
+          /* background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147)); */
+        /* } */
+        .url-link {
+          border-radius:8px;
+          /* background: #272144 !important; */
+          color: #fff !important;
+
+          display: grid;
+          grid-template-areas: "input";
+          grid-template-columns: 100%;
+          background: #f2f2f4;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          border-radius: 4px;
+        }
+        .url-link:hover {
+          border-radius:8px;
+          /* background: #272144 !important; */
+          color: #fff !important;
+
+          display: grid;
+          grid-template-areas: "input";
+          grid-template-columns: 100%;
+          background: #f2f2f4;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          border-radius: 4px;
+          border-color: #6969c0;
+        }
+        
+        .parent-submit{
+          display: flex;
+          justify-content: center;
+          align-items: center; 
+        }
+        .logo{
+          width: 70px;
+          height: 40px;
+          border-radius: 7px;
+        }
+        .logotop {
+          border-radius: 50%;
+        }
+
+    </style>
   </head>
-  <body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">
+      <img class="logo" src="{{ url_for('static', filename='trixlogo2.JPG') }}" alt="Placeholder Image" class="img-fluid mb-3">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 search">Search</button>
+      </form>
+    </div>
+  </nav>
+  <body class="d-flex flex-column">
     
     <div class="container mt-5">
-      <h2 class="text-center">Upload Video URL</h2>
+      <p id="message" class="text-center message">&#128529</p>
       <form action="/api/uploadvideo" method="POST">
         <div class="form-group">
-          <label for="youtube-url">Video URL:</label>
+          <label for="youtube-url"></label>
           <input
             type="url"
-            class="form-control"
+            class="url-link form-control"
             id="youtube-url"
             name="youtube_url"
-            placeholder="Enter Video Url"
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+        <div class="parent-submit"> <button type="submit" class="submit btn btn-primary btn-block"><b>Download</b></button></div>
       </form>
     </div>
+    <footer class="text-black mt-5">
+      <div class="container py-4">
+          <div class="row">
+              <div class="col-md-4">
+                  <h5>About Us</h5>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+              </div>
+              <div class="col-md-4">
+                  <h5>Links</h5>
+                  <ul class="list-unstyled">
+                      <li><a href="#" class="text-black">Terms and Conditions</a></li>
+                      <li><a href="#" class="text-black">Privacy Policy</a></li>
+                      <li><a href="#" class="text-black">Support</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-4">
+                  <h5>Contact Us</h5>
+                  <p>Email: npbjr@example.com</p>
+                  <p>Phone: +123 456 7890</p>
+                  <div>
+                      <a href="#" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                  </div>
+              </div>
+          </div>
+          <div class="text-center py-3">
+              <p>&copy; 2024 Your Company. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>
+
+    <script>
+        const text = "Please input your video url below";
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                document.getElementById("message").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(type, 50); 
+            }
+            else{
+              setTimeout(() => {
+                    document.getElementById("message").innerHTML = "&#128529"; 
+                    index = 0; 
+                    type(); 
+                }, 1000); 
+            }
+        }
+        type();
+        
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6766274387982652"
-     crossorigin="anonymous"></script>
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6766274387982652"
+     crossorigin="anonymous"></script> -->
   </body>
 </html>
