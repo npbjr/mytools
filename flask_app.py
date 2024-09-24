@@ -43,6 +43,9 @@ app.register_blueprint(blueprint, url_prefix="")
 def index():
     return render_template("ytdownloader.html")
 
+@app.route("/freesms")
+def freesms():
+    return render_template("freesms.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

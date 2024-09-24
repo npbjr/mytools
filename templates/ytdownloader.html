@@ -4,20 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Normitrix</title>
-    <link rel="icon" class="logotop" href="../static/trixlogo5.jpeg" type="image/x-icon">
-    <!-- <link rel="icon" class="logotop" href="{{ url_for('static', filename='trixlogo5.jpeg') }}" type="image/x-icon"> -->
+    <!-- <link rel="icon" class="logotop" href="../static/trixlogo5.jpeg" type="image/x-icon"> -->
+    <link rel="icon" class="logotop" href="{{ url_for('static', filename='trixlogo5.jpeg') }}" type="image/x-icon">
     
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../static/index.css">
+    <!-- <link rel="stylesheet" href="../static/index.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
 
   <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="#">
-      <!-- <img class="logo" src="{{ url_for('static', filename='trixlogo5.jpeg') }}" alt="Placeholder Image" class="img-fluid mb-3"> -->
-      <img class="logo" src="../static/trixlogo5.jpeg" alt="Placeholder Image" class="img-fluid mb-3">
+      <img class="logo" src="{{ url_for('static', filename='trixlogo5.jpeg') }}" alt="Placeholder Image" class="img-fluid mb-3">
+      <!-- <img class="logo" src="../static/trixlogo5.jpeg" alt="Placeholder Image" class="img-fluid mb-3"> -->
     
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +31,7 @@
           <a class="nav-link text-style-1 font-size-trans-1" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-style-1 font-size-trans-1" href="ytdownloader.html">Video to mp4</a>
+          <a class="nav-link text-style-1 font-size-trans-1" href="/">Video to mp4</a>
         </li>
         
         <li class="nav-item">
@@ -43,7 +44,7 @@
           <a class="nav-link text-style-1 font-size-trans-1" href="#">PDF to word</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-style-1 font-size-trans-1" href="freesms.html">Send Free SMS</a>
+          <a class="nav-link text-style-1 font-size-trans-1" href="{{ url_for('freesms') }}">Send Free SMS</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -110,6 +111,8 @@
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6766274387982652"
      crossorigin="anonymous"></script> -->
 
-     <script  src="../static/index.js" defer></script>
+     <!-- <script  src="../static/index.js" defer></script> -->
+      <script  src="{{ url_for('static', filename='index.js') }}" defer></script>
+     
   </body>
 </html>
