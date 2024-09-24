@@ -6,3 +6,4 @@ requests
 youtube-dl
 yt-dlp
 python-dotenv
+twilio

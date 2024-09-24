@@ -6,15 +6,14 @@
     <title>Normitrix</title>
     <link rel="icon" class="logotop" href="../static/trixlogo5.jpeg" type="image/x-icon">
     <!-- <link rel="icon" class="logotop" href="{{ url_for('static', filename='trixlogo5.jpeg') }}" type="image/x-icon"> -->
-    
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../static/index.css">
-  </head>
-
-  <nav class="navbar navbar-expand-lg navbar-light">
+    <title>Send SMS</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="#">
       <!-- <img class="logo" src="{{ url_for('static', filename='trixlogo5.jpeg') }}" alt="Placeholder Image" class="img-fluid mb-3"> -->
       <img class="logo" src="../static/trixlogo5.jpeg" alt="Placeholder Image" class="img-fluid mb-3">
@@ -53,55 +52,53 @@
     </div>
   </nav>
   <body class="d-flex flex-column">
-    
     <div class="container mt-5">
-      <p id="message" class="text-center message text-style-1"></p>
-      <form action="/api/uploadvideo" method="POST">
-        <div class="parent-center form-group">
-          <label for="youtube-url"></label>
-          <input
-            type="url"
-            class="form-control text-style-2 input-box-design-2"
-            id="youtube-url"
-            name="youtube_url"
-            required
-          />
-        </div>
-        <div class="parent-center"> <button type="submit" class="submit btn btn-primary btn-block"><b>Download</b></button></div>
-      </form>
+        <h2>Send SMS</h2>
+        <form>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" class="input-box-design-1 form-control" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="smsText">Message</label>
+                <textarea class="input-box-design-1 form-control" id="smsText" rows="5" placeholder="Enter your message here" required></textarea>
+            </div>
+            <div class="parent-center"><button type="submit" class="btn btn-primary submit">Send SMS</button></div>
+        </form>
     </div>
+    
     <footer class="text-black mt-5">
-      <div class="container py-4">
-          <div class="row">
-              <div class="col-md-4">
-                <h5>About Us</h5>
-                <p>Welcome to our website! We offer a variety of tools to enhance your online experience:</p>
-            
-              </div>
-              <div class="col-md-4">
-                  <h5>Links</h5>
-                  <ul class="list-unstyled">
-                      <li><a href="#" class="text-black">Terms and Conditions</a></li>
-                      <li><a href="#" class="text-black">Privacy Policy</a></li>
-                      <li><a href="#" class="text-black">Support</a></li>
-                  </ul>
-              </div>
-              <div class="col-md-4">
-                  <h5>Contact Us</h5>
-                  <p>Email: npbjr@example.com</p>
-                  <p>Phone: +123 456 7890</p>
-                  <div>
-                      <a href="#" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
-                      <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
-                      <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-                  </div>
-              </div>
-          </div>
-          <div class="text-center py-3">
-              <p>&copy; 2024 Your Company. All rights reserved.</p>
-          </div>
-      </div>
-  </footer>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Welcome to our website! We offer a variety of tools to enhance your online experience:</p>
+        
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-black">Terms and Conditions</a></li>
+                        <li><a href="#" class="text-black">Privacy Policy</a></li>
+                        <li><a href="#" class="text-black">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: npbjr@example.com</p>
+                    <p>Phone: +123 456 7890</p>
+                    <div>
+                        <a href="#" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center py-3">
+                <p>&copy; 2024 Your Company. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
