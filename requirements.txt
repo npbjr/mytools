@@ -7,3 +7,4 @@ youtube-dl
 yt-dlp
 python-dotenv
 twilio
+Flask-SocketIO

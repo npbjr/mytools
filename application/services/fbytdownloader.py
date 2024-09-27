@@ -5,6 +5,7 @@ import json
 import os
 from datetime import datetime
 from ..util.response_handler import Error
+from flask_socketio import SocketIO, emit
 
 class FBYTDownloader:
     """
@@ -35,8 +36,14 @@ class FBYTDownloader:
 
             return response
             
+        def progress_hook(d):
+            if d['status'] == 'downloading':
+                percentage = d['downloaded_bytes'] / d['total_bytes'] * 100
+                emit('download_progress', {'progress': percentage}, broadcast=True,  namespace="/video_downloader")
         try:
+
             with video.YoutubeDL({
+                    'progress_hooks': [progress_hook],
                     "format": "best", 
                     "outtmpl": os.path.join(
                         downloads_folder,
@@ -47,8 +54,11 @@ class FBYTDownloader:
 
             info_d = vid.extract_info(link, download=False)
             filename = vid.prepare_filename(info_d)
+            emit('download_complete', {'filename':filename}, broadcast=True,  namespace="/video_downloader")
             return send_file(filename, as_attachment=True)
-        
+            # return filename
         except Exception as e:
-            return Error(400)
+            print("ERROR DOWNLOAD ",e)
+            return e
+            # return Error(400)
 

@@ -233,6 +233,10 @@ footer h5{
     font-size: 120% !important;
 }
 
+.progress{
+    margin-bottom: 30px;
+}
+
 @media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
     input{
         max-width:80% !important;

@@ -2,14 +2,23 @@ from flask import Flask, jsonify, render_template, request, abort, current_app
 from flask_cors import CORS
 from application.api import blueprint
 import os
-import socket
 from application.util.response_handler import Error
 from dotenv import dotenv_values
-
+from flask_socketio import SocketIO, emit, Namespace
 app = Flask(__name__)
 
 CORS(app)
 app.secret_key = os.urandom(16)
+
+app.register_blueprint(blueprint, url_prefix="")
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+class MyNameSpace(Namespace):
+    def on_connect(self):
+        print("Client web connected")
+
+
+socketio.on_namespace(MyNameSpace('/video_downloader'))
 
 config = dict(dotenv_values("system/.env"))
 print(config)
@@ -25,19 +34,22 @@ def pre_checks():
     
     if "api" in request.url:
         if request.method == "POST":
-            if origin in ALLOWED_ORIGIN or origin in [request.host_url[:-1]]:
-                request.data = {"link": request.form.get("youtube_url")}
+            # if origin in ALLOWED_ORIGIN or origin in [request.host_url[:-1]]:
+            #     request.data = {"link": request.form.get("youtube_url")}
+            #     pass
+            # else:
+            auth_key = request.headers.get("Authorization")
+            print(request.data)
+            if auth_key == AUTHORIZATION_KEY:
                 pass
             else:
-                auth_key = request.headers.get("Authorization")
-                if auth_key == AUTHORIZATION_KEY:
-                    pass
-                else:
-                    return Error(401)
+                pass
+                # return Error(401)
         else:
-            return Error(500)
+            pass
+            # return Error(500)
 
-app.register_blueprint(blueprint, url_prefix="")
+
 
 @app.route("/")
 def index():
@@ -48,4 +60,4 @@ def freesms():
     return render_template("freesms.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)
