@@ -24,11 +24,8 @@ class App {
         }
     }
 
-    onDocumentReady() {
-        this.runTextAnimation();
-
-        const socket = io('/video_downloader');
-        
+    setUpButtonEvent(socket, iosession_key) {
+        console.log(socket);
         const download_button = $('#download_video');
         const progress_container = $('.progress');
         const progress_bar = $('.progress-bar');
@@ -65,6 +62,7 @@ class App {
                 fetch("/api/uploadvideo", {
                     method: 'POST',
                     headers: {
+                        'IOSession-key': iosession_key,
                         'Authorization':'sample',
                         'Content-Type': 'application/json' // Specify the content type
                     },
@@ -119,8 +117,24 @@ class App {
                 download_button.removeAttr("disabled")
             },3000)
         });
+    
     }
 
+    onDocumentReady() {
+        this.runTextAnimation();
+        fetch('/get_key')
+        .then(response => response.json())
+        .then(data => {
+            const key = data.key;  
+            const socket = io(key); 
+                
+            this.setUpButtonEvent(socket, key);
+        })
+        .catch(error => {
+            console.error('Error fetching key:', error);
+        });
+        
+    }
     
 }
 

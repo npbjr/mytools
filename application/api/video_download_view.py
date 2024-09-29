@@ -10,7 +10,8 @@ VIDEO_TITLE_LIMIT:int = 50
 ytd = FBYTDownloader()
 
 class VideoDownloadView(MethodView):
-    
+    def __init__(self, socketio):
+        self.socketio = socketio
     def post(self):
         print(request.data)
         print(type(request.data))
@@ -31,7 +32,7 @@ class VideoDownloadView(MethodView):
         filename = ydl.prepare_filename(info_d)
         try:
 
-            f = ytd.download_mp4(
+            f = ytd.download_mp4(self.socketio,
                 lambda *args : 
                 dict(
                     fn = "{name}.%(ext)s".
@@ -42,5 +43,3 @@ class VideoDownloadView(MethodView):
             return f
         except Exception as e:
             print("ERROR VIEW ",e)
-
-VIDEO_DOWNLOAD_VIEW = VideoDownloadView.as_view("video_download_view")

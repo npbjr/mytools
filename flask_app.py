@@ -1,6 +1,6 @@
-from flask import Flask, jsonify, render_template, request, abort, current_app
+from flask import Flask, jsonify, render_template, request, abort, current_app, session
 from flask_cors import CORS
-from application.api import blueprint
+from application.api import create_blueprint
 import os
 from application.util.response_handler import Error
 from dotenv import dotenv_values
@@ -10,21 +10,17 @@ app = Flask(__name__)
 CORS(app)
 app.secret_key = os.urandom(16)
 
-app.register_blueprint(blueprint, url_prefix="")
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins=['https://npbjr.pythonanywhere.com','http://127.0.0.1:5000'])
 
-class MyNameSpace(Namespace):
-    def on_connect(self):
-        print("Client web connected")
+app.register_blueprint(create_blueprint(socketio), url_prefix="")
 
-
-socketio.on_namespace(MyNameSpace('/video_downloader'))
 
 config = dict(dotenv_values("system/.env"))
 print(config)
 
 ALLOWED_ORIGIN = ["127.0.0.1", "127.0.0.1:5000", "http://127.0.0.1:5000"]
 AUTHORIZATION_KEY = config.get("API_KEY")
+
 
 @app.before_request
 def pre_checks():
@@ -49,7 +45,17 @@ def pre_checks():
             pass
             # return Error(500)
 
+class MyNameSpace(Namespace):
+    def on_connect(self):
+        print("Client web connected")
 
+@app.route('/get_key', methods=['GET'])
+def get_key():
+    key = os.urandom(16)
+    socketio.on_namespace(MyNameSpace(f'/{key.hex()}'))
+
+    session['iokey'] = f'/{key.hex()}'
+    return jsonify({"key": f'/{key.hex()}'})
 
 @app.route("/")
 def index():
