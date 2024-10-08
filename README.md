@@ -1,11 +1,6 @@
 # About
 This app will have multiple pages in the future, each pages are tools necessary to help people in their daily work, e.g video converter, video downloader, pdf converter etc.
 
-# Objective
-
-To create a single app with multiple simple microservices to handle specific tools
-To decrease the cost of deploying multiple microservices
-
 ## Prerequisites
 
 Make sure you have Python installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
@@ -50,3 +45,20 @@ pip install -r requirements.txt
 python flask_app.py
 ```
 The application should now be running on http://127.0.0.1:5000/.
+sample live app https://npbjr.pythonanywhere.com/
+
+
+if you want to test in docker environment
+```bash
+docker-compose up --build
+```
+then run in browser http://localhost
+
+you can also test running in gunicorn
+```bash
+gunicorn -k eventlet -w 1 flask_app:app
+```
+then run in browser http://127.0.0.1:8000
+
+
+
