@@ -3,9 +3,6 @@ class App {
     constructor(document){
         this.document = document;
         this.onDocumentReady();
-        // this.document.addEventListener('DOMContentLoaded', ()=>{
-            
-        // });  
     }
     text = "Please input your video url below";
     index = 0;
@@ -37,7 +34,7 @@ class App {
         
 
         download_button.on('click', (event) => {
-            
+
             event.preventDefault(); // Prevent default form submission
             progress_bar.attr('aria-valuenow', 0).css('width','0%');
             const videoUrl = document.getElementById('youtube_url').value;
@@ -47,7 +44,6 @@ class App {
                 return false;
             }
 
-            console.log("emiting download");
             progress_container.attr('hidden',false);
 
             progress_bar.attr('aria-valuenow', '1').css('width','1%');
@@ -64,33 +60,45 @@ class App {
                     headers: {
                         'IOSession-key': iosession_key,
                         'Authorization':'sample',
-                        'Content-Type': 'application/json' // Specify the content type
+                        'Content-Type': 'application/json' 
                     },
-                    body: JSON.stringify(data) // Convert the data to JSON
+                    body: JSON.stringify(data) 
                 })
                 .then(response => {
                     if (!response.ok) {
+                        progress_bar.attr('aria-valuenow', 0).css('width','0%');
+                        progress_container.attr('hidden',true);
+                        download_button.removeAttr("disabled");
                         throw new Error('Network response was not ok');
+                        
                     }
-                    return response.blob(); // Convert response to Blob
+                    return response.blob(); 
                 })
                 .then(blob => {
-                    const url = window.URL.createObjectURL(blob); // Create a URL for the Blob
-                    const a = document.createElement('a'); // Create an anchor element
+                    const url = window.URL.createObjectURL(blob); 
+                    const a = document.createElement('a'); 
                     a.href = url;
-                    a.download = ''; // Set the file name for download
-                    document.body.appendChild(a); // Append anchor to body
-                    a.click(); // Programmatically click the anchor to trigger download
-                    a.remove(); // Remove the anchor from the document
-                    window.URL.revokeObjectURL(url); // Clean up the URL object
+                    a.download = '';
+                    document.body.appendChild(a); 
+                    a.click(); 
+                    a.remove(); 
+                    window.URL.revokeObjectURL(url); 
+
+
+
+                    progress_bar.attr('aria-valuenow', 0).css('width','0%');
+                    progress_container.attr('hidden',true);
+                    download_button.removeAttr("disabled");
+
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    progress_bar.attr('aria-valuenow', 0).css('width','0%');
+                    progress_container.attr('hidden',true);
+                    download_button.removeAttr("disabled");
                 });
             }
             
-            
-            // socket.emit('download_video', { link: videoUrl, auth_key: "sample" });
 
         });
 
@@ -127,11 +135,11 @@ class App {
         .then(data => {
             const key = data.key;  
             const socket = io(key); 
-                
             this.setUpButtonEvent(socket, key);
         })
         .catch(error => {
             console.error('Error fetching key:', error);
+            this.setUpButtonEvent(null, null);
         });
         
     }

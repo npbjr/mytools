@@ -26,10 +26,10 @@ class VideoDownloadView(MethodView):
         get the filename and update
         """
 
-        with YoutubeDL() as ydl:
-            info_d = ydl.extract_info(link, download=False)
+        # with YoutubeDL() as ydl:
+        #     info_d = ydl.extract_info(link, download=False)
 
-        filename = ydl.prepare_filename(info_d)
+        # filename = ydl.prepare_filename(info_d)
         try:
 
             f = ytd.download_mp4(self.socketio,
@@ -37,7 +37,7 @@ class VideoDownloadView(MethodView):
                 dict(
                     fn = "{name}.%(ext)s".
                     format(
-                            name=f"{filename[:VIDEO_TITLE_LIMIT]}...{str(int(datetime.now().timestamp() * 1000))}"),
+                            name=f"{'%(title)s'[:VIDEO_TITLE_LIMIT]}...{str(int(datetime.now().timestamp() * 1000))}"),
                     df = os.path.join(os.path.expanduser("~"), "downloads")), 
                     link )
             return f

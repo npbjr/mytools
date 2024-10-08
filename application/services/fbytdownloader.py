@@ -17,6 +17,9 @@ class FBYTDownloader:
         f = f()
         return f['fn'], f['df']
 
+    def __progress__(self, p: Callable[...,Any]): ...
+        
+
     def download_mp3(self, link: str) -> json: ...
     def download_mp4_720p(self, link: str) -> json: ...
     def download_mp4_1024p(self, link: str) -> json: ...
@@ -39,6 +42,7 @@ class FBYTDownloader:
             return response
             
         def progress_hook(d):
+            print("STATUS ", d['status'])
             if d['status'] == 'downloading':
                 percentage = d['downloaded_bytes'] / d['total_bytes'] * 100
                 socketio.emit('download_progress', {'progress': percentage},  
