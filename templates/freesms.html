@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Normitrix</title>
+    <!-- <link rel="icon" class="logotop" href="../static/trixlogo5.jpeg" type="image/x-icon"> -->
+    <link rel="icon" class="logotop" href="{{ url_for('static', filename='trixlogo5.jpeg') }}" type="image/x-icon">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="../static/index.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6766274387982652"
+     crossorigin="anonymous"></script>
+    <title>Send SMS</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">
+      <img class="logo" src="{{ url_for('static', filename='trixlogo5.jpeg') }}" alt="Placeholder Image" class="img-fluid mb-3">
+      <!-- <img class="logo" src="../static/trixlogo5.jpeg" alt="Placeholder Image" class="img-fluid mb-3"> -->
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="{{ url_for('index') }}">Video to mp4</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Video to mp3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Image Converter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">PDF to word</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Send Free SMS</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <a class="button button--second button--blank nav__button js-reach-goal top-nav-design-1 text-style-1" href="#">about</a>
+       
+      </form>
+    </div>
+  </nav>
+  <body class="d-flex flex-column">
+    <div class="container mt-5">
+        <h2>Send SMS</h2>
+        <form>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" class="input-box-design-1 form-control" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="smsText">Message</label>
+                <textarea class="input-box-design-1 form-control" id="smsText" rows="5" placeholder="Enter your message here" required></textarea>
+            </div>
+            <div class="parent-center"><button type="submit" class="btn btn-primary submit">Send SMS</button></div>
+        </form>
+    </div>
+    
+    <footer class="text-black mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Welcome to our website! We offer a variety of tools to enhance your online experience:</p>
+        
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-black">Terms and Conditions</a></li>
+                        <li><a href="#" class="text-black">Privacy Policy</a></li>
+                        <li><a href="#" class="text-black">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Email: npbjr@example.com</p>
+                    <p>Phone: +123 456 7890</p>
+                    <div>
+                        <a href="#" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center py-3">
+                <p>&copy; 2024 Your Company. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+     <!-- <script  src="../static/index.js" defer></script> -->
+     <script  src="{{ url_for('static', filename='index.js') }}" defer></script>
+  </body>
+</html>

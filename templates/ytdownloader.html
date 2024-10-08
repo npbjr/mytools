@@ -3,35 +3,162 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Downloader</title>
+    <title>Normitrix</title>
+    <!-- <link rel="icon" class="logotop" href="../static/trixlogo5.jpeg" type="image/x-icon"> -->
+    <link rel="icon" class="logotop" href="{{ url_for('static', filename='trixlogo5.jpeg') }}" type="image/x-icon">
+    
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+
+    
+
+    <!-- <link rel="stylesheet" href="../static/index.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6766274387982652"
+     crossorigin="anonymous"></script>
   </head>
-  <body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">
+      <img class="logo" src="{{ url_for('static', filename='trixlogo5.jpeg') }}" alt="Placeholder Image" class="img-fluid mb-3">
+      <!-- <img class="logo" src="../static/trixlogo5.jpeg" alt="Placeholder Image" class="img-fluid mb-3"> -->
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="/">Video to mp4</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Video to mp3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Image Converter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">PDF to word</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-style-1 font-size-trans-1" href="#">Send Free SMS</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <a class="button button--second button--blank nav__button js-reach-goal top-nav-design-1 text-style-1" href="#">about</a>
+       
+      </form>
+    </div>
+  </nav>
+  <body class="d-flex flex-column">
+    <div
+      data-mdb-alert-init class="alert fade"
+      id="alert-success"
+      role="alert"
+      data-mdb-color="success"
+      data-mdb-position="top-right"
+      data-mdb-stacking="true"
+      data-mdb-width="535px"
+      data-mdb-width="535px"
+      data-mdb-append-to-body="true"
+      data-mdb-hidden="true"
+      data-mdb-autohide="true"
+      data-mdb-delay="2000"
+    ></div>
     
     <div class="container mt-5">
-      <h2 class="text-center">Upload Video URL</h2>
-      <form action="/api/uploadvideo" method="POST">
-        <div class="form-group">
-          <label for="youtube-url">Video URL:</label>
+      <!-- <div class="text-center" id="progress-container">
+        <progress id="progress-bar" value="0" max="100"></progress>
+        <span id="progress-text">0%</span>
+      </div> -->
+      <p id="message" class="text-center message text-style-1"></p>
+      <!-- <form action="/api/uploadvideo" method="POST"> -->
+        <!-- <form> -->
+          
+        <div class="parent-center form-group">
           <input
             type="url"
-            class="form-control"
-            id="youtube-url"
+            class="form-control text-style-2 input-box-design-2"
+            id="youtube_url"
             name="youtube_url"
-            placeholder="Enter Video Url"
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Upload</button>
-      </form>
+        <div class="text-center" id="progress-container"></div>
+            <div class="progress" hidden>
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+          </div>
+        <div class="parent-center"> 
+          <button id="download_video" type="submit" class="submit btn btn-primary btn-block"><b>Download</b></button></div>
+      <!-- </form> -->
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="alert alert-success">
+              Download Successfull
+            </div>
+          </div>  
+      </div>
+  </div>
+    <footer class="text-black mt-5">
+      <div class="container py-4">
+          <div class="row">
+              <div class="col-md-4">
+                <h5>About Us</h5>
+                <p>Welcome to our website! We offer a variety of tools to enhance your online experience:</p>
+            
+              </div>
+              <div class="col-md-4">
+                  <h5>Links</h5>
+                  <ul class="list-unstyled">
+                      <li><a href="#" class="text-black">Terms and Conditions</a></li>
+                      <li><a href="#" class="text-black">Privacy Policy</a></li>
+                      <li><a href="#" class="text-black">Support</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-4">
+                  <h5>Contact Us</h5>
+                  <p>Email: npbjr@example.com</p>
+                  <p>Phone: +123 456 7890</p>
+                  <div>
+                      <a href="#" class="text-white mr-3"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                  </div>
+              </div>
+          </div>
+          <div class="text-center py-3">
+              <p>&copy; 2024 Your Company. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>
+
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
+    
+  <!-- Bootstrap JS and dependencies -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6766274387982652"
-     crossorigin="anonymous"></script>
+     <!-- <script  src="../static/index.js" defer></script> -->
+      <script  src="{{ url_for('static', filename='index.js') }}" defer></script>
+     
   </body>
 </html>

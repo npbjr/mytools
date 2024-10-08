@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  flask_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app #to mount my directory so i can update the code without stopping the container
+    environment:
+      - FLASK_ENV=development # for auto reloading when i do some changes on my directory
+    expose:
+      - "5000"
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - flask_app

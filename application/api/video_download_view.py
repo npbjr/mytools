@@ -10,10 +10,12 @@ VIDEO_TITLE_LIMIT:int = 50
 ytd = FBYTDownloader()
 
 class VideoDownloadView(MethodView):
-    
+    def __init__(self, socketio):
+        self.socketio = socketio
     def post(self):
-
-        if type(request.data) == str:
+        print(request.data)
+        print(type(request.data))
+        if type(request.data) == str or type(request.data) == bytes:
             data = json.loads(request.data)
         else:
             data = request.data
@@ -24,19 +26,20 @@ class VideoDownloadView(MethodView):
         get the filename and update
         """
 
-        with YoutubeDL() as ydl:
-            info_d = ydl.extract_info(link, download=False)
+        # with YoutubeDL() as ydl:
+        #     info_d = ydl.extract_info(link, download=False)
 
-        filename = ydl.prepare_filename(info_d)
+        # filename = ydl.prepare_filename(info_d)
+        try:
 
-        return ytd.download_mp4(
-            lambda *args : 
-            dict(
-                fn = "{name}.%(ext)s".
-                 format(
-                        name=f"{filename[:VIDEO_TITLE_LIMIT]}...{str(int(datetime.now().timestamp() * 1000))}"),
-                df = os.path.join(os.path.expanduser("~"), "downloads")), 
-                link )
-        
-
-VIDEO_DOWNLOAD_VIEW = VideoDownloadView.as_view("video_download_view")
+            f = ytd.download_mp4(self.socketio,
+                lambda *args : 
+                dict(
+                    fn = "{name}.%(ext)s".
+                    format(
+                            name=f"{'%(title)s'[:VIDEO_TITLE_LIMIT]}...{str(int(datetime.now().timestamp() * 1000))}"),
+                    df = os.path.join(os.path.expanduser("~"), "downloads")), 
+                    link )
+            return f
+        except Exception as e:
+            print("ERROR VIEW ",e)

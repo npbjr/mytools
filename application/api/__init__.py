@@ -1,1 +1,2 @@
-from .views import API as blueprint
+from .views import create_blueprint
+
