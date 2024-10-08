@@ -14,8 +14,8 @@ def log_incomming_response(f: Callable[..., Any]): ...
 def handle_request(func): ...
 def handle_response(cfunc: Callable[..., Any]):
     """
-    the reason for this is i wanted to pass a function as parameter to this decorator
-    any custom function that can modify the data before handling it in the decorator
+    to be used for future logging implementation
+    
     """
     def wrapper_function(func, *args, **kwargs):
         @wraps(func)
