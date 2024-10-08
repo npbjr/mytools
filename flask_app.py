@@ -9,32 +9,35 @@ app = Flask(__name__)
 
 CORS(app)
 app.secret_key = os.urandom(16)
+config = dict(dotenv_values("system/.env"))
 
-socketio = SocketIO(app, cors_allowed_origins=['https://npbjr.pythonanywhere.com','http://127.0.0.1:5000','http://127.0.0.1:8000','http://localhost'])
+print("[\033[92m BUILD \033[0m] config .. :", config)    
+
+ALLOWED_ORIGINS = config.get('ALLOWED_ORIGINS').split(',')
+
+socketio = SocketIO(app, cors_allowed_origins=ALLOWED_ORIGINS)
 
 app.register_blueprint(create_blueprint(socketio), url_prefix="")
 
-
-config = dict(dotenv_values("system/.env"))
-print(config)
-
-ALLOWED_ORIGIN = ["127.0.0.1", "127.0.0.1:5000", "http://127.0.0.1:5000"]
 AUTHORIZATION_KEY = config.get("API_KEY")
-
 
 @app.before_request
 def pre_checks():
     origin = request.headers.get("Origin")
 
-    print(origin, ALLOWED_ORIGIN, request.host_url[:-1])
+    print(origin, ALLOWED_ORIGINS, request.host_url[:-1])
     
     if "api" in request.url:
         if request.method == "POST":
-            if origin in ALLOWED_ORIGIN or origin in [request.host_url[:-1]]:
+            if origin in ALLOWED_ORIGINS or origin in [request.host_url[:-1]]:
+                print("[\033[92m PRECHECKS \033[0m]--- allowed client auto pass --- ")    
                 pass
             else:
+
+                print("[\033[92m PRECHECKS \033[0m]--- auth is required for external clients --- ")
+
                 auth_key = request.headers.get("Authorization")
-                print(request.data)
+                
                 if auth_key == AUTHORIZATION_KEY:
                     pass
                 else:

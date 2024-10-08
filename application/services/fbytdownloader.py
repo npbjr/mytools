@@ -29,7 +29,9 @@ class FBYTDownloader:
         filename, downloads_folder = self.__metadata__(meta)
 
         io_session_key = request.headers.get('IOSession-key', False)
+
         print(io_session_key)
+
         @after_this_request
         def clean_directory(response):
             """
@@ -42,7 +44,9 @@ class FBYTDownloader:
             return response
             
         def progress_hook(d):
+
             print("STATUS ", d['status'])
+
             if d['status'] == 'downloading':
                 percentage = d['downloaded_bytes'] / d['total_bytes'] * 100
                 socketio.emit('download_progress', {'progress': percentage},  
@@ -64,9 +68,7 @@ class FBYTDownloader:
             socketio.emit('download_complete', {'filename':filename},  
             namespace=io_session_key) if io_session_key else ...
             return send_file(filename, as_attachment=True)
-            # return filename
         except Exception as e:
             print("ERROR DOWNLOAD ",e)
             return e
-            # return Error(400)
 

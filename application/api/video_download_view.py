@@ -11,10 +11,11 @@ ytd = FBYTDownloader()
 
 class VideoDownloadView(MethodView):
     def __init__(self, socketio):
+
         self.socketio = socketio
+        
     def post(self):
-        print(request.data)
-        print(type(request.data))
+
         if type(request.data) == str or type(request.data) == bytes:
             data = json.loads(request.data)
         else:

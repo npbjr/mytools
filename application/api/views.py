@@ -5,9 +5,11 @@ from .video_download_view import VideoDownloadView
 
 class NotSupported(MethodView):
     not_supported:str = lambda *args: f"Not Supported yet{args}"
+    
     def post(self): ...
     def get(self):
         return not_supported
+
 NOT_SUPPORTED = NotSupported.as_view("not_supported")
 
 def create_blueprint(socketio):
