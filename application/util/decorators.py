@@ -29,8 +29,7 @@ def handle_response(cfunc: Callable[..., Any]):
                 if func_result.get("status", None)
                 else ...
             )
-            # well i need to follow what my reponse_handler wants, i will update this in the future
-            # so will convert it back to str
+            #convert it back to str
             return json.dumps(func_result)
         return inner
     return wrapper_function
