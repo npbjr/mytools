@@ -5,6 +5,8 @@ import json
 import os
 from datetime import datetime
 from ..util.response_handler import Error
+import subprocess
+import time
 
 
 class FBYTDownloader:
@@ -30,6 +32,9 @@ class FBYTDownloader:
 
         io_session_key = request.headers.get('IOSession-key', False)
 
+        socketio.emit('download_progress', {'progress': 40},  
+                namespace=io_session_key) if io_session_key else ...
+
         print(io_session_key)
 
         @after_this_request
@@ -49,6 +54,7 @@ class FBYTDownloader:
 
             if d['status'] == 'downloading':
                 percentage = d['downloaded_bytes'] / d['total_bytes'] * 100
+                print("percentage ", percentage)
                 socketio.emit('download_progress', {'progress': percentage},  
                 namespace=io_session_key) if io_session_key else ...
         try:
@@ -64,10 +70,14 @@ class FBYTDownloader:
                 vid.download([link])
 
             info_d = vid.extract_info(link, download=False)
+
             filename = vid.prepare_filename(info_d)
+
             socketio.emit('download_complete', {'filename':filename},  
-            namespace=io_session_key) if io_session_key else ...
+                namespace=io_session_key) if io_session_key else ...
+
             return send_file(filename, as_attachment=True)
+
         except Exception as e:
             print("ERROR DOWNLOAD ",e)
             return e
