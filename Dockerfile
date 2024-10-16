@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-k", "eventlet", "--bind", "0.0.0.0:5000", "flask_app:app"]
+CMD ["gunicorn", "-k", "eventlet", "--bind", "0.0.0.0:5000", "--timeout", "120", "flask_app:app"]
