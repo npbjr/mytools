@@ -54,7 +54,7 @@ footer {
     width:200px;
     box-shadow: 0 10px 25px rgba(148,151,155,.65);
     line-height: 36px;
-    border-radius: 42px;
+    /* border-radius: 42px; */
     font-size: 10px;
     letter-spacing: 0.065em;
     text-transform: uppercase;
@@ -160,7 +160,7 @@ a.text-black:hover{
 .input-box-design-2 {
     max-width: 50%;
     height: 42px;
-    border-radius: 42px;
+    /* border-radius: 42px; */
     line-height: 42px;
     background-color: #f6f6f6;
     border: #ffffff;
@@ -168,7 +168,7 @@ a.text-black:hover{
 }
 
 .input-box-design-2:hover {
-    border-radius:8px;
+    /* border-radius:8px; */
 
     display: grid;
     grid-template-areas: "input";
@@ -176,14 +176,14 @@ a.text-black:hover{
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    border-radius: 42px;
+    /* border-radius: 42px; */
     border: #ffffff;
 }
 
 .input-box-design-2:focus {
     max-width: 50%;
     height: 42px;
-    border-radius: 42px;
+    /* border-radius: 42px; */
     line-height: 42px;
     background-color:#f6f6f6;
     box-shadow: 0 4px 5px rgba(148,151,155,.65);
