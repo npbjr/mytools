@@ -5,6 +5,10 @@ This app will have multiple pages in the future, each pages are tools necessary 
 
 Make sure you have Python installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
 
+## Objectives
+
+To learn and earn from ads by determining a better solution to handle users, downloads and uploads
+
 ## Setup Instructions
 
 Follow these steps to set up the project:
