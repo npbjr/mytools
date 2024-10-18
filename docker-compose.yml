@@ -12,9 +12,11 @@ services:
     volumes:
       - .:/app #to mount my directory so i can update the code without stopping the container
     environment:
-      - FLASK_ENV=development # for auto reloading when i do some changes on my directory
+      - FLASK_ENV=production # for auto reloading when i do some changes on my directory
     expose:
       - "5000"
+    depends_on:
+      - nginx
   nginx:
     build:
       context: .
@@ -26,5 +28,3 @@ services:
           memory: '512M'
     ports:
       - "80:80"
-    depends_on:
-      - flask_app
