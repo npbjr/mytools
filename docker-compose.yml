@@ -27,4 +27,4 @@ services:
           cpus: '0.3'
           memory: '512M'
     ports:
-      - "80:80"
+      - "8080:80"
