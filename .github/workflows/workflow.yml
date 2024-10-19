@@ -30,12 +30,17 @@ jobs:
       - name: Set up docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: install docker compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
       - name: Build and run Docker Compose
-        run: docker-compose up -d
+        run: docker-compose up -d --build
 
       - name: Wait for services to be ready
         run: echo "Waiting for services to be ready"
-
+        
       - name: Run test
         run: echo "testing ...."
 
