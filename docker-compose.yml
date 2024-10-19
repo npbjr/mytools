@@ -9,8 +9,8 @@ services:
         limits:
           cpus: '2'
           memory: '2048M'
-    volumes:
-      - .:/app #to mount my directory so i can update the code without stopping the container
+    # volumes:
+    #   - .:/app #to mount my directory so i can update the code without stopping the container
     environment:
       - FLASK_ENV=production # for auto reloading when i do some changes on my directory
     expose:

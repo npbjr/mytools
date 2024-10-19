@@ -1,0 +1,32 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+
+    pull_request:
+      braches:
+        - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build docker image
+        run: |
+          docker build -t flask_app_image:latest .
+
+      - name: Run docker container
+        run: docker run --name flask_app_container
+        
+      - name: Stop and remove container
+        run: |
+          docker stop flask_app_container
+          docker rm flask_app_container
