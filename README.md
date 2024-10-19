@@ -11,10 +11,13 @@ To create a video downloader app that can download different videos from social 
 
 ## Goals
 
-To handle 100k users
-To make it deployable to different cloud platforms making sure infra config is setup correctly to scale vertically or horizontally
-To make the app user friendly that they will keep using it
-To learn different approach in configuring and deploying apps
+To handle 100k users.
+
+To make it deployable to different cloud platforms making sure infra config is setup correctly to scale vertically or horizontally.
+
+To make the app user friendly that they will keep using it.
+
+To learn different approach in configuring and deploying apps.
 
 ## Setup Instructions
 
