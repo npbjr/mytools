@@ -12,21 +12,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      nginx:
+        image: nginx:latest
+        ports:
+          - 80:80
+        options: >-
+          --health-cmd "curl -f http://localhost/ || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      - name: Build docker image
+      - name: Build and run Docker Compose
         run: |
-          docker build -t flask_app_image:latest .
+          docker-compose up -d --build
 
-      - name: Run docker container
-        run: docker run --name flask_app_container
-        
-      - name: Stop and remove container
+      - name: Wait for services to be ready
         run: |
-          docker stop flask_app_container
-          docker rm flask_app_container
+          echo "Waiting for services to be ready"
+      - name: Run test
+        run: echo "testing ...."
+
+      - name: Stop and remove containers
+        run: docker-compose down
