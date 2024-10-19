@@ -7,7 +7,14 @@ Make sure you have Python installed on your machine. You can download it from [p
 
 ## Objectives
 
-To learn and earn from ads by determining a better solution to handle users, downloads and uploads
+To create a video downloader app that can download different videos from social media platforms
+
+## Goals
+
+To handle 100k users
+To make it deployable to different cloud platforms making sure infra config is setup correctly to scale vertically or horizontally
+To make the app user friendly that they will keep using it
+To learn different approach in configuring and deploying apps
 
 ## Setup Instructions
 
