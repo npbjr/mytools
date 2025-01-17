@@ -59,7 +59,7 @@ pip install -r requirements.txt
 python flask_app.py
 ```
 The application should now be running on http://127.0.0.1:5000/.
-sample live app https://npbjr.pythonanywhere.com/
+sample live app [https://npbjr2.pythonanywhere.com/](https://npbjr2.pythonanywhere.com/)
 
 
 if you want to test in docker environment
