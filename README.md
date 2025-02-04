@@ -26,7 +26,7 @@ Follow these steps to set up the project:
 1. Create a Virtual Environment
    
 ```bash
-git clone https://github.com/npbjr/mytools.git
+git clone https://github.com/npbjr/vd-flask.git
 ```
 cd mytools
 
